@@ -13,10 +13,10 @@ public class WalletDTO {
 
     private Long id;
 
-    @NotNull
-    @Length(min = 3)
+    @NotNull(message = "O nome não pode ser nulo.")
+    @Length(min = 3, message = "O nome deve conter no mímino 3 caracteres.")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Insira um valor para carteira.")
     private BigDecimal value;
 }
