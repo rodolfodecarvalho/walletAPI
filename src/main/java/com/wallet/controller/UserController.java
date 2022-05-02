@@ -18,7 +18,7 @@ import com.wallet.service.UserService;
 import com.wallet.util.Bcrypt;
 
 @RestController
-@RequestMapping(value = "user")
+@RequestMapping(path = "user")
 public class UserController {
 
     @Autowired
