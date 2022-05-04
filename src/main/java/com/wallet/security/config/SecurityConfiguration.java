@@ -41,12 +41,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	return super.authenticationManagerBean();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
+    @Bean(name = "passwordEncoder")
+    public static PasswordEncoder passwordEncoder() {
 	return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    @Bean(name = "authenticationTokenFilter")
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
 	return new JwtAuthenticationTokenFilter();
     }
