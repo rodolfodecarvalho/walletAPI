@@ -25,7 +25,7 @@ public class WalletItemDTO {
     private Date date;
 
     @NotNull(message = "Informe um tipo.")
-    @Pattern(regexp = "^(ENTRADA|SAÍDA)$", message = "Para o tipo somente são acecitos os calores ENTRADA ou SAÍDA.")
+    @Pattern(regexp = "^(ENTRADA|SAÍDA)$", message = "Para o tipo somente são aceitos os valores ENTRADA ou SAÍDA.")
     private String type;
 
     @NotNull(message = "Informe uma descrição.")

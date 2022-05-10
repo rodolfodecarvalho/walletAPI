@@ -1,6 +1,5 @@
 package com.wallet.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -9,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.wallet.security.utils.JwtTokenUtil;
 
+import lombok.RequiredArgsConstructor;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -20,14 +20,13 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 
 @Configuration
+@RequiredArgsConstructor
 @Profile("dev")
 public class SwaggerConfig {
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public Docket api() {

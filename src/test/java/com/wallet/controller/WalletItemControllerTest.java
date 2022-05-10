@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +25,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -40,23 +40,23 @@ import com.wallet.service.UserWalletService;
 import com.wallet.service.WalletItemService;
 import com.wallet.util.enums.TypeEnum;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
 class WalletItemControllerTest {
 
     @MockBean
-    WalletItemService service;
+    private WalletItemService service;
 
     @MockBean
-    UserWalletService userWalletService;
+    private UserWalletService userWalletService;
 
     @MockBean
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
 
     private static final Long ID = 1L;
     private static final Date DATE = new Date();
@@ -170,7 +170,7 @@ class WalletItemControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = "admin@admin.com", roles = { "ADMIN" })
     public void testDelete() throws JsonProcessingException, Exception {
 	BDDMockito.given(service.findById(Mockito.anyLong())).willReturn(Optional.of(new WalletItem()));
 
@@ -179,7 +179,7 @@ class WalletItemControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = "admin@admin.com", roles = { "ADMIN" })
     public void testDeleteInvalid() throws Exception {
 	BDDMockito.given(service.findById(Mockito.anyLong())).willReturn(Optional.empty());
 

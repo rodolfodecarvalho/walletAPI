@@ -1,6 +1,5 @@
 package com.wallet.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,19 +17,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.wallet.security.JwtAuthenticationEntryPoint;
 import com.wallet.security.JwtAuthenticationTokenFilter;
+import com.wallet.security.utils.JwtTokenUtil;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
+    private final JwtTokenUtil jwtTokenUtil;
+
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 	authenticationManagerBuilder.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder());
     }
@@ -48,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean(name = "authenticationTokenFilter")
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-	return new JwtAuthenticationTokenFilter();
+	return new JwtAuthenticationTokenFilter(userDetailsService, jwtTokenUtil);
     }
 
     @Override

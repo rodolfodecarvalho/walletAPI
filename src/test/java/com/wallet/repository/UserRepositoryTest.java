@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.wallet.entity.User;
+import com.wallet.util.enums.RoleEnum;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -23,7 +24,7 @@ class UserRepositoryTest {
     private static final String EMAIL = "email@teste.com";
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
 
     @BeforeEach
     public void setUp() {
@@ -31,6 +32,7 @@ class UserRepositoryTest {
 	user.setName("Set user");
 	user.setPassword("Senha123");
 	user.setEmail(EMAIL);
+	user.setRole(RoleEnum.ROLE_ADMIN);
 
 	repository.save(user);
     }
@@ -46,6 +48,7 @@ class UserRepositoryTest {
 	user.setName("Teste");
 	user.setPassword("123456");
 	user.setEmail("teste@teste.com");
+	user.setRole(RoleEnum.ROLE_ADMIN);
 
 	User response = repository.save(user);
 

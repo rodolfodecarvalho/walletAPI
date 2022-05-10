@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,23 +20,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.wallet.entity.Wallet;
 import com.wallet.entity.WalletItem;
 import com.wallet.repository.WalletItemRepository;
 import com.wallet.util.enums.TypeEnum;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
 class WalletItemServiceTest {
 
     @MockBean
-    WalletItemRepository repository;
+    private WalletItemRepository repository;
 
     @Autowired
-    WalletItemService service;
+    private WalletItemService service;
 
     private static final Date DATE = new Date();
     private static final TypeEnum TYPE = TypeEnum.EN;

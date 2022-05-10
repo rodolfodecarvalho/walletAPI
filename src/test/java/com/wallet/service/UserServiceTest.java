@@ -24,10 +24,10 @@ import com.wallet.repository.UserRepository;
 class UserServiceTest {
 
     @MockBean
-    UserRepository repository;
+    private UserRepository repository;
 
     @Autowired
-    UserService service;
+    private UserService service;
 
     @BeforeEach
     public void setUp() {

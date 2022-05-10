@@ -57,6 +57,8 @@ public class JwtTokenUtil {
 	claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
 	claims.put(CLAIM_KEY_CREATED, new Date());
 
+	userDetails.getAuthorities().forEach(authority -> claims.put(CLAIM_KEY_ROLE, authority.getAuthority()));
+
 	return generateToken(claims);
     }
 

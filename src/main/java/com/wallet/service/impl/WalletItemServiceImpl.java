@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,11 +17,13 @@ import com.wallet.repository.WalletItemRepository;
 import com.wallet.service.WalletItemService;
 import com.wallet.util.enums.TypeEnum;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class WalletItemServiceImpl implements WalletItemService {
 
-    @Autowired
-    WalletItemRepository repository;
+    private final WalletItemRepository repository;
 
     @Value("${pagination.items_per_page}")
     private int itemsPerPage;

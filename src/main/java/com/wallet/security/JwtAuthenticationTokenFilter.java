@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,16 +16,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.wallet.security.utils.JwtTokenUtil;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private static final String AUTH_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {

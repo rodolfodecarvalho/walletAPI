@@ -2,7 +2,6 @@ package com.wallet.controller;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -16,13 +15,16 @@ import com.wallet.entity.User;
 import com.wallet.response.Response;
 import com.wallet.service.UserService;
 import com.wallet.util.Bcrypt;
+import com.wallet.util.enums.RoleEnum;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "user")
 public class UserController {
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
 
     @PostMapping
     public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserDTO dto, BindingResult result) {
@@ -49,6 +51,7 @@ public class UserController {
 	user.setName(dto.getName());
 	user.setEmail(dto.getEmail());
 	user.setPassword(Bcrypt.getHash(dto.getPassword()));
+	user.setRole(RoleEnum.valueOf(dto.getRole()));
 
 	return user;
     }
@@ -59,6 +62,7 @@ public class UserController {
 	dto.setId(user.getId());
 	dto.setName(user.getName());
 	dto.setEmail(user.getEmail());
+	dto.setRole(user.getRole().toString());
 
 	return dto;
     }
